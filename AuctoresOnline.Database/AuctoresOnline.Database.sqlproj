@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>AuctoresOnline.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{b96effcf-e3cc-4c74-ac50-ed8c401a6ed5}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>AuctoresOnline.Database</RootNamespace>
+    <AssemblyName>AuctoresOnline.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Views" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Core tables (no dependencies) -->
+    <Build Include="dbo\Tables\Journals.sql" />
+    <Build Include="dbo\Tables\Admin.sql" />
+    <Build Include="dbo\Tables\Authors.sql" />
+    <Build Include="dbo\Tables\Editors.sql" />
+    <Build Include="dbo\Tables\EditorProfiles.sql" />
+    <Build Include="dbo\Tables\Reviewers.sql" />
+    <Build Include="dbo\Tables\Banners.sql" />
+    <Build Include="dbo\Tables\Collaborators.sql" />
+    <Build Include="dbo\Tables\Contacts.sql" />
+    <Build Include="dbo\Tables\Documents.sql" />
+    <Build Include="dbo\Tables\Pages.sql" />
+    <Build Include="dbo\Tables\Testimonials.sql" />
+    <Build Include="dbo\Tables\OldArticles.sql" />
+    <Build Include="dbo\Tables\SeoArticles.sql" />
+    <Build Include="dbo\Tables\TempCkeditorImages.sql" />
+    <Build Include="dbo\Tables\TempExternalImages.sql" />
+    <!-- Tables that depend on Journals -->
+    <Build Include="dbo\Tables\AbstractingIndexing.sql" />
+    <Build Include="dbo\Tables\Articles.sql" />
+    <Build Include="dbo\Tables\ArticleProcessingCharges.sql" />
+    <Build Include="dbo\Tables\JournalEditorialBoard.sql" />
+    <Build Include="dbo\Tables\JournalSections.sql" />
+    <Build Include="dbo\Tables\MemberedIn.sql" />
+    <Build Include="dbo\Tables\MemberRequestReviewer.sql" />
+    <Build Include="dbo\Tables\PubmedIndex.sql" />
+    <Build Include="dbo\Tables\ManuscriptRequest.sql" />
+    <!-- Tables that depend on Editors -->
+    <Build Include="dbo\Tables\Biography.sql" />
+    <!-- Tables that depend on Articles -->
+    <Build Include="dbo\Tables\ArticleAuthors.sql" />
+    <Build Include="dbo\Tables\ArticleDetails.sql" />
+    <Build Include="dbo\Tables\ArticleReferences.sql" />
+    <!-- Tables that depend on Journals + Authors -->
+    <Build Include="dbo\Tables\Manuscripts.sql" />
+    <!-- Tables that depend on Manuscripts + Authors -->
+    <Build Include="dbo\Tables\ManuscriptAuthors.sql" />
+    <!-- Special issues -->
+    <Build Include="dbo\Tables\SpecialIssues.sql" />
+    <Build Include="dbo\Tables\SpecialIssuesEditors.sql" />
+    <Build Include="dbo\Tables\SpecialIssueRequest.sql" />
+    <!-- Subscription -->
+    <Build Include="dbo\Tables\SubscriptionList.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Article views -->
+    <Build Include="dbo\Views\vw_ArticleDetails.sql" />
+    <Build Include="dbo\Views\vw_ActiveArticles.sql" />
+    <Build Include="dbo\Views\vw_CurrentIssueArticles.sql" />
+    <Build Include="dbo\Views\vw_ArticlesInPress.sql" />
+    <Build Include="dbo\Views\vw_ArchiveArticles.sql" />
+    <Build Include="dbo\Views\vw_JournalArticleCounts.sql" />
+    <Build Include="dbo\Views\vw_AbstractingIndexingDetail.sql" />
+    <Build Include="dbo\Views\vw_ArticleProcessingCharges.sql" />
+    <!-- Journal views -->
+    <Build Include="dbo\Views\vw_JournalDetails.sql" />
+    <Build Include="dbo\Views\vw_JournalEditors.sql" />
+    <Build Include="dbo\Views\vw_EditorProfiles.sql" />
+    <!-- Document / content views -->
+    <Build Include="dbo\Views\vw_Documents.sql" />
+    <!-- Manuscript views -->
+    <Build Include="dbo\Views\vw_Manuscripts.sql" />
+    <Build Include="dbo\Views\vw_ManuscriptAuthors.sql" />
+    <Build Include="dbo\Views\vw_ManuscriptRequest.sql" />
+    <!-- Misc views -->
+    <Build Include="dbo\Views\vw_MemberedIn.sql" />
+    <Build Include="dbo\Views\vw_MemberRequest.sql" />
+    <Build Include="dbo\Views\vw_PubmedIndex.sql" />
+    <Build Include="dbo\Views\vw_SubscriptionList.sql" />
+    <!-- Special issue views -->
+    <Build Include="dbo\Views\vw_SpecialIssues.sql" />
+    <Build Include="dbo\Views\vw_SpecialIssue.sql" />
+    <Build Include="dbo\Views\vw_SpecialIssueEditors.sql" />
+  </ItemGroup>
+</Project>
