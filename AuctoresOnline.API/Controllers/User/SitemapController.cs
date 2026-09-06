@@ -16,8 +16,7 @@ public class SitemapController(IUserSitemapService sitemapService) : UserBaseCon
     /// Pass a baseUrl query parameter to control the domain prefix,
     /// otherwise the request's origin is used.
     /// </summary>
-    [HttpGet]
-    [Route(nameof(GetSitemap))]
+    [HttpGet(nameof(GetSitemap))]
     public async Task<IActionResult> GetSitemap([FromQuery] string? baseUrl)
     {
         var origin = baseUrl ?? $"{Request.Scheme}://{Request.Host}";

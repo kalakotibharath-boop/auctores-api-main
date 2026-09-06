@@ -11,18 +11,15 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class SubscribersController(ISubscriberService subscriberService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<IEnumerable<SubscriberDto>>>> GetAll()
         => ToResult(await subscriberService.GetAllAsync());
 
-    [HttpPut]
-    [Route(nameof(ToggleStatus))]
+    [HttpPut(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await subscriberService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await subscriberService.DeleteAsync(id));
 }

@@ -15,8 +15,7 @@ public class MemberRequestController(IUserMemberRequestService requestService) :
     /// Accepts multipart/form-data so a CV / bio-data file can be attached.
     /// Type: 1 = Member, 2 = Reviewer.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(BecomeMember))]
+    [HttpPost(nameof(BecomeMember))]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> BecomeMember([FromForm] BecomeMemberRequest req)
     {
@@ -27,8 +26,7 @@ public class MemberRequestController(IUserMemberRequestService requestService) :
     /// <summary>
     /// Subscribes an email address to journal or site updates.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(Subscribe))]
+    [HttpPost(nameof(Subscribe))]
     public async Task<IActionResult> Subscribe([FromBody] SubscribeRequest req)
         => ToResult(await requestService.SubscribeAsync(req));
 
@@ -36,8 +34,7 @@ public class MemberRequestController(IUserMemberRequestService requestService) :
     /// Submits a manuscript for review.
     /// Accepts multipart/form-data so one or more manuscript files can be attached.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(SubmitManuscript))]
+    [HttpPost(nameof(SubmitManuscript))]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> SubmitManuscript([FromForm] SubmitManuscriptRequest req)
     {
@@ -48,8 +45,7 @@ public class MemberRequestController(IUserMemberRequestService requestService) :
     /// <summary>
     /// Submits a contact us enquiry.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(ContactUs))]
+    [HttpPost(nameof(ContactUs))]
     public async Task<IActionResult> ContactUs([FromBody] ContactUsRequest req)
         => ToResult(await requestService.AddContactUsAsync(req));
 }

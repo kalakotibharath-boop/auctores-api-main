@@ -11,19 +11,16 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class BecomeRequestController(IBecomeRequestService becomeRequestService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
         => ToResult(await becomeRequestService.GetAllAsync(page, pageSize, search));
 
-    [HttpGet]
-    [Route(nameof(GetById))]
+    [HttpGet(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<BecomeRequestDto>>> GetById(long id)
         => ToResult(await becomeRequestService.GetByIdAsync(id));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await becomeRequestService.DeleteAsync(id));
 }

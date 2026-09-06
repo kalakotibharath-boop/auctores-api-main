@@ -11,19 +11,16 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class ReviewersController(IReviewerService reviewerService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
         => ToResult(await reviewerService.GetAllAsync(page, pageSize, search));
 
-    [HttpGet]
-    [Route(nameof(GetById))]
+    [HttpGet(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<ReviewerDto>>> GetById(long id)
         => ToResult(await reviewerService.GetByIdAsync(id));
 
-    [HttpPost]
-    [Route(nameof(Create))]
+    [HttpPost(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateReviewerRequest req, IFormFile? image)
     {
         var result = await reviewerService.CreateAsync(req, image);
@@ -31,23 +28,19 @@ public class ReviewersController(IReviewerService reviewerService) : AdminBaseCo
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<long>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut]
-    [Route(nameof(Update))]
+    [HttpPut(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(long id, [FromForm] CreateReviewerRequest req, IFormFile? image)
         => ToResult(await reviewerService.UpdateAsync(id, req, image));
 
-    [HttpPut]
-    [Route(nameof(ToggleStatus))]
+    [HttpPut(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await reviewerService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await reviewerService.DeleteAsync(id));
 
-    [HttpDelete]
-    [Route(nameof(DeleteImage))]
+    [HttpDelete(nameof(DeleteImage))]
     public async Task<ActionResult<ApiResponse>> DeleteImage(long id)
         => ToResult(await reviewerService.DeleteImageAsync(id));
 }

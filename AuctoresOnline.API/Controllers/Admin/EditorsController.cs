@@ -11,19 +11,16 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class EditorsController(IEditorService editorService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
         => ToResult(await editorService.GetAllAsync(page, pageSize, search));
 
-    [HttpGet]
-    [Route(nameof(GetById))]
+    [HttpGet(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<EditorDto>>> GetById(long id)
         => ToResult(await editorService.GetByIdAsync(id));
 
-    [HttpPost]
-    [Route(nameof(Create))]
+    [HttpPost(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateEditorRequest req, IFormFile? image)
     {
         var result = await editorService.CreateAsync(req, image);
@@ -31,23 +28,19 @@ public class EditorsController(IEditorService editorService) : AdminBaseControll
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<long>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut]
-    [Route(nameof(Update))]
+    [HttpPut(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(long id, [FromForm] CreateEditorRequest req, IFormFile? image)
         => ToResult(await editorService.UpdateAsync(id, req, image));
 
-    [HttpPut]
-    [Route(nameof(ToggleStatus))]
+    [HttpPut(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await editorService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await editorService.DeleteAsync(id));
 
-    [HttpDelete]
-    [Route(nameof(DeleteImage))]
+    [HttpDelete(nameof(DeleteImage))]
     public async Task<ActionResult<ApiResponse>> DeleteImage(long id)
         => ToResult(await editorService.DeleteImageAsync(id));
 }

@@ -11,23 +11,19 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class TestimonialsController(ITestimonialService testimonialService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<IEnumerable<TestimonialDto>>>> GetAll()
         => ToResult(await testimonialService.GetAllAsync());
 
-    [HttpPost]
-    [Route(nameof(Create))]
+    [HttpPost(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateTestimonialRequest req, IFormFile? testimonialImage)
         => ToResult(await testimonialService.CreateAsync(req, testimonialImage));
 
-    [HttpPut]
-    [Route(nameof(ToggleStatus))]
+    [HttpPut(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await testimonialService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await testimonialService.DeleteAsync(id));
 }

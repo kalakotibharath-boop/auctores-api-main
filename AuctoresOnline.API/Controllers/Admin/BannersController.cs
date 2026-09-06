@@ -11,23 +11,19 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class BannersController(IBannerService bannerService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<IEnumerable<BannerDto>>>> GetAll()
         => ToResult(await bannerService.GetAllAsync());
 
-    [HttpPost]
-    [Route(nameof(Create))]
+    [HttpPost(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateBannerRequest req, IFormFile? bannerImage)
         => ToResult(await bannerService.CreateAsync(req, bannerImage));
 
-    [HttpPut]
-    [Route(nameof(ToggleStatus))]
+    [HttpPut(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await bannerService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await bannerService.DeleteAsync(id));
 }

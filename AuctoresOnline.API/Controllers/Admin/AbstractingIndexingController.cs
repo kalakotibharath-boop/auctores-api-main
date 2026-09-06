@@ -11,18 +11,15 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Authorize]
 public class AbstractingIndexingController(IAbstractingIndexingService abstractingService) : AdminBaseController
 {
-    [HttpGet]
-    [Route(nameof(GetAll))]
+    [HttpGet(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<IEnumerable<AbstractingIndexingDto>>>> GetAll()
         => ToResult(await abstractingService.GetAllAsync());
 
-    [HttpGet]
-    [Route(nameof(GetById))]
+    [HttpGet(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<AbstractingIndexingDto>>> GetById(long id)
         => ToResult(await abstractingService.GetByIdAsync(id));
 
-    [HttpPost]
-    [Route(nameof(Create))]
+    [HttpPost(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromBody] CreateAbstractingIndexingRequest req)
     {
         var result = await abstractingService.CreateAsync(req);
@@ -30,13 +27,11 @@ public class AbstractingIndexingController(IAbstractingIndexingService abstracti
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<long>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut]
-    [Route(nameof(Update))]
+    [HttpPut(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(long id, [FromBody] CreateAbstractingIndexingRequest req)
         => ToResult(await abstractingService.UpdateAsync(id, req));
 
-    [HttpDelete]
-    [Route(nameof(Delete))]
+    [HttpDelete(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await abstractingService.DeleteAsync(id));
 }

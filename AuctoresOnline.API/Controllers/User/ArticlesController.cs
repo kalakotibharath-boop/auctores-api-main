@@ -14,8 +14,7 @@ public class ArticlesController(IUserArticleService articleService) : UserBaseCo
     /// content sections, and references.
     /// Used on /article/{seoName}.
     /// </summary>
-    [HttpGet]
-    [Route(nameof(GetArticle))]
+    [HttpGet(nameof(GetArticle))]
     public async Task<IActionResult> GetArticle(string seoName)
         => ToResult(await articleService.GetArticleBySlugAsync(seoName));
 
@@ -23,8 +22,7 @@ public class ArticlesController(IUserArticleService articleService) : UserBaseCo
     /// Increments the PDF download counter for the article.
     /// Call this when a user clicks the PDF download link.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(TrackDownload))]
+    [HttpPost(nameof(TrackDownload))]
     public async Task<IActionResult> TrackDownload(long articleId)
         => ToResult(await articleService.IncrementDownloadCountAsync(articleId));
 
@@ -32,8 +30,7 @@ public class ArticlesController(IUserArticleService articleService) : UserBaseCo
     /// Increments the view counter for the article.
     /// Call this when the article detail page loads.
     /// </summary>
-    [HttpPost]
-    [Route(nameof(TrackView))]
+    [HttpPost(nameof(TrackView))]
     public async Task<IActionResult> TrackView(long articleId)
         => ToResult(await articleService.IncrementViewCountAsync(articleId));
 }
