@@ -12,16 +12,19 @@ namespace AuctoresOnline.API.Controllers.Admin;
 public class ArticlesController(IArticleService articleService) : AdminBaseController
 {
     [HttpGet]
+    [Route(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20,
         [FromQuery] string? search = null, [FromQuery] byte? articleType = null)
         => ToResult(await articleService.GetAllAsync(page, pageSize, search, articleType));
 
-    [HttpGet("{id:long}")]
+    [HttpGet]
+    [Route(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<object>>> GetById(long id)
         => ToResult(await articleService.GetByIdAsync(id));
 
     [HttpPost]
+    [Route(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateArticleRequest req, IFormFile? articlePdf)
     {
         var result = await articleService.CreateAsync(req, articlePdf);
@@ -29,39 +32,48 @@ public class ArticlesController(IArticleService articleService) : AdminBaseContr
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<long>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut]
+    [Route(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(long id, [FromForm] CreateArticleRequest req, IFormFile? articlePdf)
         => ToResult(await articleService.UpdateAsync(id, req, articlePdf));
 
-    [HttpPut("{id:long}/status")]
+    [HttpPut]
+    [Route(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await articleService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpPut("{id:long}/type")]
+    [HttpPut]
+    [Route(nameof(ChangeType))]
     public async Task<ActionResult<ApiResponse>> ChangeType(long id, [FromBody] ChangeArticleTypeRequest req)
         => ToResult(await articleService.ChangeTypeAsync(id, req));
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete]
+    [Route(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await articleService.DeleteAsync(id));
 
-    [HttpGet("{id:long}/details")]
+    [HttpGet]
+    [Route(nameof(GetDetails))]
     public async Task<ActionResult<ApiResponse<IEnumerable<ArticleDetailDto>>>> GetDetails(long id)
         => ToResult(await articleService.GetDetailsAsync(id));
 
-    [HttpPost("{id:long}/details")]
+    [HttpPost]
+    [Route(nameof(SaveDetail))]
     public async Task<ActionResult<ApiResponse<long>>> SaveDetail(long id, [FromBody] SaveArticleDetailRequest req)
         => ToResult(await articleService.SaveDetailAsync(id, req));
 
-    [HttpDelete("{articleId:long}/details/{detailsId:long}")]
+    [HttpDelete]
+    [Route(nameof(DeleteDetail))]
     public async Task<ActionResult<ApiResponse>> DeleteDetail(long articleId, long detailsId)
         => ToResult(await articleService.DeleteDetailAsync(detailsId));
 
-    [HttpGet("details/{detailsId:long}")]
+    [HttpGet]
+    [Route(nameof(GetDetail))]
     public async Task<ActionResult<ApiResponse<ArticleDetailDto>>> GetDetail(long detailsId)
         => ToResult(await articleService.GetDetailByIdAsync(detailsId));
 
-    [HttpPost("upload-ckeditor-image")]
+    [HttpPost]
+    [Route(nameof(UploadCkEditorImage))]
     public async Task<ActionResult<object>> UploadCkEditorImage(IFormFile upload)
     {
         var result = await articleService.UploadCkEditorImageAsync(upload);

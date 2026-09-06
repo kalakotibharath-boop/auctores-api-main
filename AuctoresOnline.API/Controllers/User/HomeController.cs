@@ -15,6 +15,8 @@ public class HomeController(IUserHomeService homeService) : UserBaseController
     /// the 6 most recent articles, and 10 random collaborators.
     /// </summary>
     [HttpGet]
+    [Route(nameof(GetHomeData))]
+    [Route("GetHomeData")]
     public async Task<IActionResult> GetHomeData()
         => ToResult(await homeService.GetHomeDataAsync());
 }

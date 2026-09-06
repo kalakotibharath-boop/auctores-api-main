@@ -12,18 +12,22 @@ namespace AuctoresOnline.API.Controllers.Admin;
 public class CollaboratorsController(ICollaboratorService collaboratorService) : AdminBaseController
 {
     [HttpGet]
+    [Route(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<IEnumerable<CollaboratorDto>>>> GetAll()
         => ToResult(await collaboratorService.GetAllAsync());
 
     [HttpPost]
+    [Route(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateCollaboratorRequest req, IFormFile? collaboratorImage)
         => ToResult(await collaboratorService.CreateAsync(req, collaboratorImage));
 
-    [HttpPut("{id:long}/status")]
+    [HttpPut]
+    [Route(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await collaboratorService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete]
+    [Route(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await collaboratorService.DeleteAsync(id));
 }

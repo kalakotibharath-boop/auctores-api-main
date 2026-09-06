@@ -14,7 +14,8 @@ public class SpecialIssuesController(IUserSpecialIssueService specialIssueServic
     /// Also increments the view count each time this endpoint is called.
     /// Used on /special-issues/{slug}.
     /// </summary>
-    [HttpGet("{slug}")]
+    [HttpGet]
+    [Route(nameof(GetSpecialIssue))]
     public async Task<IActionResult> GetSpecialIssue(string slug)
         => ToResult(await specialIssueService.GetSpecialIssueBySlugAsync(slug));
 }

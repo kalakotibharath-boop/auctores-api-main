@@ -12,15 +12,18 @@ namespace AuctoresOnline.API.Controllers.Admin;
 public class JournalsController(IJournalService journalService) : AdminBaseController
 {
     [HttpGet]
+    [Route(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
         => ToResult(await journalService.GetAllAsync(page, pageSize, search));
 
-    [HttpGet("{id:int}")]
+    [HttpGet]
+    [Route(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<JournalDetailDto>>> GetById(int id)
         => ToResult(await journalService.GetByIdAsync(id));
 
     [HttpPost]
+    [Route(nameof(Create))]
     public async Task<ActionResult<ApiResponse<int>>> Create([FromForm] CreateJournalRequest req,
         IFormFile? journalImage, IFormFile? indexingImage, IFormFile? crossrefImage)
     {
@@ -29,20 +32,24 @@ public class JournalsController(IJournalService journalService) : AdminBaseContr
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<int>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut]
+    [Route(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(int id, [FromForm] CreateJournalRequest req,
         IFormFile? journalImage, IFormFile? indexingImage, IFormFile? crossrefImage)
         => ToResult(await journalService.UpdateAsync(id, req, journalImage, indexingImage, crossrefImage));
 
-    [HttpPut("{id:int}/status")]
+    [HttpPut]
+    [Route(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(int id, [FromBody] StatusToggleRequest req)
         => ToResult(await journalService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete("{id:int}")]
+    [HttpDelete]
+    [Route(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(int id)
         => ToResult(await journalService.DeleteAsync(id));
 
-    [HttpPost("upload-ckeditor-image")]
+    [HttpPost]
+    [Route(nameof(UploadCkEditorImage))]
     public async Task<ActionResult<object>> UploadCkEditorImage(IFormFile upload)
     {
         var result = await journalService.UploadCkEditorImageAsync(upload);

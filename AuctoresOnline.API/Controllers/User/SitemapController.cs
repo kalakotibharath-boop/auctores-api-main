@@ -17,6 +17,7 @@ public class SitemapController(IUserSitemapService sitemapService) : UserBaseCon
     /// otherwise the request's origin is used.
     /// </summary>
     [HttpGet]
+    [Route(nameof(GetSitemap))]
     public async Task<IActionResult> GetSitemap([FromQuery] string? baseUrl)
     {
         var origin = baseUrl ?? $"{Request.Scheme}://{Request.Host}";

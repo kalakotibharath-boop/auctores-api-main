@@ -9,7 +9,8 @@ namespace AuctoresOnline.API.Controllers.Admin;
 [Route("api/admin/auth")]
 public class AuthController(IAdminService adminService) : AdminBaseController
 {
-    [HttpPost("login")]
+    [HttpPost]
+    [Route(nameof(Login))]
     public async Task<ActionResult<ApiResponse<LoginResponse>>> Login([FromBody] LoginRequest req)
     {
         var result = await adminService.LoginAsync(req);

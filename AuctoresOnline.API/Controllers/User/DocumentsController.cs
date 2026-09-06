@@ -14,6 +14,7 @@ public class DocumentsController(IUserDocumentService documentService) : UserBas
     /// Used to build the navigation sidebar on document pages.
     /// </summary>
     [HttpGet]
+    [Route(nameof(GetAllDocuments))]
     public async Task<IActionResult> GetAllDocuments()
         => ToResult(await documentService.GetAllDocumentsAsync());
 
@@ -22,7 +23,8 @@ public class DocumentsController(IUserDocumentService documentService) : UserBas
     /// along with the navigation list of all other active pages.
     /// Used on /doc/{slug}.
     /// </summary>
-    [HttpGet("{slug}")]
+    [HttpGet]
+    [Route(nameof(GetDocument))]
     public async Task<IActionResult> GetDocument(string slug)
         => ToResult(await documentService.GetDocumentBySlugAsync(slug));
 }

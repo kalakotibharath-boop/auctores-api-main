@@ -19,7 +19,8 @@ public class UserJournalService(ApplicationDbContext context) : IUserJournalServ
             {
                 JournalName = j.JournalName,
                 JournalSeoName = j.JournalSeoName,
-                IsExternalJournal = j.IsExternalJournal
+                IsExternalJournal = j.IsExternalJournal,
+                IssnNumber = j.IssnNumber,
             })
             .ToListAsync();
 

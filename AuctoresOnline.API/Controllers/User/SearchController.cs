@@ -16,6 +16,7 @@ public class SearchController(IUserSearchService searchService) : UserBaseContro
     /// </summary>
     /// <param name="keyword">Search term to match against article titles.</param>
     [HttpGet]
+    [Route(nameof(Search))]
     public async Task<IActionResult> Search([FromQuery] string keyword)
         => ToResult(await searchService.SearchArticlesAsync(keyword));
 }

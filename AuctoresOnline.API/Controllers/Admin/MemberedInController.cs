@@ -12,15 +12,18 @@ namespace AuctoresOnline.API.Controllers.Admin;
 public class MemberedInController(IMemberedInService memberedInService) : AdminBaseController
 {
     [HttpGet]
+    [Route(nameof(GetAll))]
     public async Task<ActionResult<ApiResponse<object>>> GetAll(
         [FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? search = null)
         => ToResult(await memberedInService.GetAllAsync(page, pageSize, search));
 
-    [HttpGet("{id:long}")]
+    [HttpGet]
+    [Route(nameof(GetById))]
     public async Task<ActionResult<ApiResponse<MemberedInDto>>> GetById(long id)
         => ToResult(await memberedInService.GetByIdAsync(id));
 
     [HttpPost]
+    [Route(nameof(Create))]
     public async Task<ActionResult<ApiResponse<long>>> Create([FromForm] CreateMemberedInRequest req, IFormFile? image)
     {
         var result = await memberedInService.CreateAsync(req, image);
@@ -28,15 +31,18 @@ public class MemberedInController(IMemberedInService memberedInService) : AdminB
         return CreatedAtAction(nameof(GetById), new { id = result.Data }, ApiResponse<long>.Ok(result.Data, result.Message));
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut]
+    [Route(nameof(Update))]
     public async Task<ActionResult<ApiResponse>> Update(long id, [FromForm] CreateMemberedInRequest req, IFormFile? image)
         => ToResult(await memberedInService.UpdateAsync(id, req, image));
 
-    [HttpPut("{id:long}/status")]
+    [HttpPut]
+    [Route(nameof(ToggleStatus))]
     public async Task<ActionResult<ApiResponse>> ToggleStatus(long id, [FromBody] StatusToggleRequest req)
         => ToResult(await memberedInService.ToggleStatusAsync(id, req.CurrentStatus));
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete]
+    [Route(nameof(Delete))]
     public async Task<ActionResult<ApiResponse>> Delete(long id)
         => ToResult(await memberedInService.DeleteAsync(id));
 }

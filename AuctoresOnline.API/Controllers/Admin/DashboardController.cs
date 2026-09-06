@@ -15,18 +15,22 @@ public class DashboardController(IAdminService adminService) : AdminBaseControll
     private int AdminId => int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
     [HttpGet]
+    [Route(nameof(GetCounts))]
     public async Task<ActionResult<ApiResponse<DashboardCountsDto>>> GetCounts()
         => ToResult(await adminService.GetDashboardCountsAsync());
 
-    [HttpGet("profile")]
+    [HttpGet]
+    [Route(nameof(GetProfile))]
     public async Task<ActionResult<ApiResponse<AdminDto>>> GetProfile()
         => ToResult(await adminService.GetProfileAsync(AdminId));
 
-    [HttpPut("profile")]
+    [HttpPut]
+    [Route(nameof(UpdateProfile))]
     public async Task<ActionResult<ApiResponse>> UpdateProfile([FromBody] UpdateProfileRequest req)
         => ToResult(await adminService.UpdateProfileAsync(AdminId, req));
 
-    [HttpPut("change-password")]
+    [HttpPut]
+    [Route(nameof(ChangePassword))]
     public async Task<ActionResult<ApiResponse>> ChangePassword([FromBody] ChangePasswordRequest req)
         => ToResult(await adminService.ChangePasswordAsync(AdminId, req));
 }
