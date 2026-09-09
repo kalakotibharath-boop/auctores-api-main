@@ -48,7 +48,7 @@ public class UserArticleService(ApplicationDbContext context) : IUserArticleServ
             return ServiceResult<ArticlePublicDetailDto>.NotFound("Article not found.");
 
         // Load related authors, details and references in parallel
-        var authorsTask = context.ArticleAuthors
+        var authorsTask = await context.ArticleAuthors
             .Where(au => au.ArticleId == article.ArticleId)
             .OrderBy(au => au.AuthorNo)
             .Select(au => new ArticleAuthorPublicDto
@@ -62,7 +62,7 @@ public class UserArticleService(ApplicationDbContext context) : IUserArticleServ
             })
             .ToListAsync();
 
-        var detailsTask = context.ArticleDetails
+        var detailsTask = await context.ArticleDetails
             .Where(d => d.DetailsArticleId == article.ArticleId)
             .OrderBy(d => d.DetailsId)
             .Select(d => new ArticleDetailPublicDto
@@ -73,7 +73,7 @@ public class UserArticleService(ApplicationDbContext context) : IUserArticleServ
             })
             .ToListAsync();
 
-        var referencesTask = context.ArticleReferences
+        var referencesTask = await context.ArticleReferences
             .Where(r => r.ReferenceArticleId == article.ArticleId)
             .Select(r => new ArticleReferencePublicDto
             {
@@ -84,11 +84,11 @@ public class UserArticleService(ApplicationDbContext context) : IUserArticleServ
             })
             .ToListAsync();
 
-        await Task.WhenAll(authorsTask, detailsTask, referencesTask);
+        //await Task.WhenAll(authorsTask, detailsTask, referencesTask);
 
-        article.Authors = authorsTask.Result;
-        article.Details = detailsTask.Result;
-        article.References = referencesTask.Result;
+        article.Authors = authorsTask;
+        article.Details = detailsTask;
+        article.References = referencesTask;
 
         return ServiceResult<ArticlePublicDetailDto>.Ok(article);
     }

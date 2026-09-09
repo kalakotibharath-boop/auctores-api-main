@@ -18,6 +18,7 @@ public class JournalListItemDto
     public string? JournalSeoName { get; set; }
     public bool IsExternalJournal { get; set; }
     public string? IssnNumber { get; set; }
+    public string? Image { get; set; }
 }
 
 public class JournalListingDto
