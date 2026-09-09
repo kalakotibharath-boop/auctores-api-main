@@ -35,7 +35,7 @@ public class JournalDto
     public string? JournalSeoName { get; set; }
     public string? CallForPapers { get; set; }
     public string? AimsAndScope { get; set; }
-    public long ChiefEditor { get; set; }
+    public int ChiefEditor { get; set; }
     public string? JournalImage { get; set; }
     public bool IsExternalJournal { get; set; }
     public int JournalStatus { get; set; }

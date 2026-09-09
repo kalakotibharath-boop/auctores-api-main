@@ -31,6 +31,28 @@ public class UserHomeService(ApplicationDbContext context) : IUserHomeService
             })
             .ToListAsync();
 
+        var articleIds = recentArticles.Select(x => x.ArticleId).ToList();
+
+        var recentArticleAuthors = await context.ArticleAuthors
+            .Where(x => articleIds.Contains(x.ArticleId))
+            .Select(x => new
+            {
+                x.ArticleId,
+                x.AuthorName
+            })
+            .ToListAsync();
+
+        foreach (var article in recentArticles)
+        {
+            article.AllAuthorNames = string.Join(", ",
+                recentArticleAuthors
+                    .Where(x => x.ArticleId == article.ArticleId)
+                    .Select(x => x.AuthorName)
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x => x.Trim())
+                    .Distinct()
+            ) ?? string.Empty;
+        }
         var collaborators = await context.Collaborators
             .Where(c => c.CollaboratorStatus == 1)
             .OrderBy(c => Guid.NewGuid())

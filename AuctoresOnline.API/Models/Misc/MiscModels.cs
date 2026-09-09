@@ -22,7 +22,7 @@ public record CreateBannerRequest(string? BannerHeading, string? BannerDescripti
 public class CollaboratorDto
 {
     [Key]
-    public long CollaboratorId { get; set; }
+    public int CollaboratorId { get; set; }
     public string? CollaboratorName { get; set; }
     public string? CollaboratorUrl { get; set; }
     public string? CollaboratorImage { get; set; }
