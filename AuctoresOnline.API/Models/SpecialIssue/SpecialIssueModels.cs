@@ -25,7 +25,7 @@ public class SpecialIssueDto
     public string? IssueDataDisplay { get; set; }
     public string? Keywords { get; set; }
     public string? Benefits { get; set; }
-    public byte Status { get; set; }
+    public int Status { get; set; }
     public DateTime? CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
     [NotMapped]
