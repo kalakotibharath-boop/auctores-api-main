@@ -3,11 +3,23 @@ using AuctoresOnline.API.Data;
 using AuctoresOnline.API.Models.Common;
 using AuctoresOnline.API.Models.User;
 using AuctoresOnline.API.Services.Interfaces.User;
+using AutoMapper;
+using AuctoresOnline.API.Models.Misc;
 
 namespace AuctoresOnline.API.Services.Implementations.User;
 
-public class UserHomeService(ApplicationDbContext context) : IUserHomeService
+public class UserHomeService : IUserHomeService
 {
+    private readonly ApplicationDbContext context;
+    private readonly IMapper mapper;
+
+    public UserHomeService(
+        ApplicationDbContext context,
+        IMapper mapper)
+    {
+        this.context = context;
+        this.mapper = mapper;
+    }
     public async Task<ServiceResult<HomeDataDto>> GetHomeDataAsync()
     {
         var journalsCount = await context.Journals.CountAsync(j => j.JournalStatus == 1);
@@ -75,5 +87,20 @@ public class UserHomeService(ApplicationDbContext context) : IUserHomeService
         };
 
         return ServiceResult<HomeDataDto>.Ok(result);
+    }
+
+    public async Task<List<TestimonialPublicDto>> GetTestimonials(int limit)
+    {
+        var query = context.Testimonials
+            .Where(x => x.TestimonialStatus == 1)
+            .OrderByDescending(x => x.TestimonialId);
+
+        var testimonials = await (limit > 0
+            ? query.Take(limit).ToListAsync()
+            : query.ToListAsync());
+
+        var result = mapper.Map<List<TestimonialPublicDto>>(testimonials);
+
+        return result;
     }
 }

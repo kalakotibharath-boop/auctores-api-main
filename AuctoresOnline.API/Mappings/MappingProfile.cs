@@ -7,6 +7,7 @@ using AuctoresOnline.API.Models.EditorProfile;
 using AuctoresOnline.API.Models.Journal;
 using AuctoresOnline.API.Models.Misc;
 using AuctoresOnline.API.Models.Reviewer;
+using AuctoresOnline.API.Models.User;
 
 namespace AuctoresOnline.API.Mappings;
 
@@ -111,5 +112,7 @@ public class MappingProfile : Profile
             .ForMember(d => d.TestimonialImage, opt => opt.Ignore())
             .ForMember(d => d.TestimonialCreatedDate, opt => opt.Ignore())
             .ForMember(d => d.TestimonialUpdatedDate, opt => opt.Ignore());
+
+        CreateMap<TestimonialDto, TestimonialPublicDto > ();
     }
 }

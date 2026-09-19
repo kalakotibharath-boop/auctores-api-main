@@ -6,4 +6,5 @@ namespace AuctoresOnline.API.Services.Interfaces.User;
 public interface IUserHomeService
 {
     Task<ServiceResult<HomeDataDto>> GetHomeDataAsync();
+    Task<List<TestimonialPublicDto>> GetTestimonials(int limit);
 }

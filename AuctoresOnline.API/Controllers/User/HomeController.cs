@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AuctoresOnline.API.Services.Interfaces.User;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AuctoresOnline.API.Controllers.User;
 
@@ -17,4 +18,10 @@ public class HomeController(IUserHomeService homeService) : UserBaseController
     [HttpGet(nameof(GetHomeData))]
     public async Task<IActionResult> GetHomeData()
         => ToResult(await homeService.GetHomeDataAsync());
+
+    [HttpGet(nameof(GetTestimonials))]
+    public async Task<IActionResult> GetTestimonials(int limit = 0)
+    {
+        return Ok(await homeService.GetTestimonials(limit));
+    }
 }
