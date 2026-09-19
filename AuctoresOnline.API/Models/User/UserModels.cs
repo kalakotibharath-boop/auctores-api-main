@@ -83,6 +83,13 @@ public class EditorBoardMemberDto
     public string? EditorDesignation { get; set; }
     public string? ProfileImage { get; set; }
     public string EditorRole { get; set; } = "";
+    public string? EditorEmail { get; set; }
+    public string? EditorAddress { get; set; }
+    public string? EditorBiography { get; set; }
+    public string? EditorResearch { get; set; }
+    public string? EditorOrcid { get; set; }
+    public string? EditorGoogleScholar { get; set; }
+    public string? EditorWebsite { get; set; }
 }
 
 // ── Editor Profiles ───────────────────────────────────────────────────────────
@@ -117,6 +124,10 @@ public class ArticleListItemDto
     public int VolumeNo { get; set; }
     public int IssueNo { get; set; }
     public string? AllAuthorNames { get; set; }
+    public string? ArticleAbstract { get; set; }
+    public int ArticleViews { get; set; }
+    public int ArticleDownloads { get; set; }
+    public string? ArticleDoi { get; set; }
 }
 
 public class ArticlePublicDetailDto

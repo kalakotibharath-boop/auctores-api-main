@@ -58,7 +58,8 @@ public class UserArticleService(ApplicationDbContext context) : IUserArticleServ
                 AuthorSubhead = au.AuthorSubhead,
                 AuthorEmail = au.AuthorEmail,
                 AuthorOrcid = au.AuthorOrcid,
-                AuthorAddress = au.AuthorAddress
+                AuthorAddress = au.AuthorAddress,
+                
             })
             .ToListAsync();
 

@@ -151,9 +151,38 @@ public class UserJournalService(ApplicationDbContext context) : IUserJournalServ
                     EditorName = e.EditorName,
                     EditorDesignation = e.EditorDesignation,
                     ProfileImage = e.ProfileImage,
-                    EditorRole = b.EditorRole
+                    EditorRole = b.EditorRole,
+                    EditorAddress = e.EditorAddress,
+                    EditorEmail = e.EditorEmail,
+                    EditorBiography = e.EditorBiography,
+                    EditorGoogleScholar = e.EditorGoogleScholar,
+                    EditorOrcid = e.EditorOrcid,
+                    EditorResearch = e.EditorResearch,
+                    EditorWebsite = e.EditorWebsite
                 })
             .ToListAsync();
+
+        var cheifEditor = await context.Editors
+            .Where(b => b.EditorId == journal.ChiefEditor)
+            .Select(e => new EditorBoardMemberDto
+                {
+                    EditorId = e.EditorId,
+                    EditorName = e.EditorName,
+                    EditorDesignation = e.EditorDesignation,
+                    ProfileImage = e.ProfileImage,
+                    EditorRole = "Chief Editor",
+                    EditorAddress = e.EditorAddress,
+                    EditorEmail = e.EditorEmail,
+                    EditorBiography = e.EditorBiography,
+                    EditorGoogleScholar = e.EditorGoogleScholar,
+                    EditorOrcid = e.EditorOrcid,
+                    EditorResearch = e.EditorResearch,
+                    EditorWebsite = e.EditorWebsite
+            })
+            .FirstOrDefaultAsync();
+
+        if(cheifEditor != null)
+            members.Add(cheifEditor);
 
         var roles = members.Select(m => m.EditorRole).Distinct().ToList();
 
@@ -506,7 +535,11 @@ public class UserJournalService(ApplicationDbContext context) : IUserJournalServ
                 PublishedDate = a.PublishedDate,
                 ArticleFor = a.ArticleFor,
                 VolumeNo = a.VolumeNo,
-                IssueNo = a.IssueNo
+                IssueNo = a.IssueNo,
+                ArticleViews = a.ArticleViews,
+                ArticleDownloads = a.ArticleDownloads,
+                ArticleDoi = a.ArticleDoi,
+                ArticleAbstract = a.ArticleAbstract
             })
             .ToListAsync();
 
