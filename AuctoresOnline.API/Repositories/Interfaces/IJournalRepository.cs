@@ -13,6 +13,6 @@ public interface IJournalRepository : IRepository<JournalDto>
     Task<bool> UpdateAsync(int id, JournalDto journal, string? journalImage, string? indexingImage, string? crossrefImage);
     Task<bool> UpdateStatusAsync(int id, int status);
     Task<bool> DeleteAsync(int id);
-    Task ReplaceEditorialBoardAsync(int journalId, Dictionary<string, List<long>> roleEditors);
+    Task ReplaceEditorialBoardAsync(int journalId, Dictionary<string, List<int>> roleEditors);
     Task ReplaceSectionsAsync(int journalId, List<string> sections);
 }

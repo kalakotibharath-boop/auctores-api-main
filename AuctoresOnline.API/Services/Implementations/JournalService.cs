@@ -74,7 +74,7 @@ public class JournalService(IJournalRepository repo, FileUploadHelper fileHelper
         return ServiceResult<string>.Ok(fileHelper.GetFileUrl("journals/about", fileName));
     }
 
-    private static Dictionary<string, List<long>> BuildRoleEditors(CreateJournalRequest req) => new()
+    private static Dictionary<string, List<int>> BuildRoleEditors(CreateJournalRequest req) => new()
     {
         ["Manuscript Editor"] = req.ManuscriptEditorIds,
         ["Assistant Editor"] = req.AssistantEditorIds,

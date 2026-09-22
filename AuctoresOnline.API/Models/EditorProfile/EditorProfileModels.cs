@@ -8,7 +8,7 @@ namespace AuctoresOnline.API.Models.EditorProfile;
 public class EditorProfileDto
 {
     [Key]
-    public long EditorId { get; set; }
+    public int EditorId { get; set; }
     public string EditorName { get; set; } = "";
     public string? EditorEmail { get; set; }
     public string? EditorPhone { get; set; }

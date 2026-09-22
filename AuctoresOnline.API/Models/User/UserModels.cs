@@ -104,7 +104,7 @@ public class EditorProfilesPublicDto
 
 public class EditorProfileMemberDto
 {
-    public long EditorId { get; set; }
+    public int EditorId { get; set; }
     public string EditorName { get; set; } = "";
     public string? EditorDesignation { get; set; }
     public string? EditorImage { get; set; }

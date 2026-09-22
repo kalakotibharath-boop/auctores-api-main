@@ -173,7 +173,7 @@ public class JournalRepository(ApplicationDbContext context) : Repository<Journa
         }
     }
 
-    public async Task ReplaceEditorialBoardAsync(int journalId, Dictionary<string, List<long>> roleEditors)
+    public async Task ReplaceEditorialBoardAsync(int journalId, Dictionary<string, List<int>> roleEditors)
     {
         using var transaction = await _context.Database.BeginTransactionAsync();
         await _context.JournalEditorialBoards.Where(b => b.JournalId == journalId).ExecuteDeleteAsync();

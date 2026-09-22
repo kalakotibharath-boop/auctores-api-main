@@ -7,8 +7,8 @@ namespace AuctoresOnline.API.Entities;
 public class JournalEditorialBoard
 {
     [Key]
-    public long EditorialBoardId { get; set; }
+    public int EditorialBoardId { get; set; }
     public int JournalId { get; set; }
-    public long EditorId { get; set; }
+    public int EditorId { get; set; }
     public string EditorRole { get; set; } = "";
 }

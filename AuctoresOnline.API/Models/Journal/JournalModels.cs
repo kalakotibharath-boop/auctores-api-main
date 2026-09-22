@@ -110,10 +110,10 @@ public class CreateJournalRequest
     public string? AimsAndScope { get; set; }
     public long? ChiefEditor { get; set; }
     public bool IsExternalJournal { get; set; }
-    public List<long> ManuscriptEditorIds { get; set; } = [];
-    public List<long> AssistantEditorIds { get; set; } = [];
-    public List<long> ConsultingEditorIds { get; set; } = [];
-    public List<long> AssociateEditorIds { get; set; } = [];
-    public List<long> EditorProfileIds { get; set; } = [];
+    public List<int> ManuscriptEditorIds { get; set; } = [];
+    public List<int> AssistantEditorIds { get; set; } = [];
+    public List<int> ConsultingEditorIds { get; set; } = [];
+    public List<int> AssociateEditorIds { get; set; } = [];
+    public List<int> EditorProfileIds { get; set; } = [];
     public List<string> Sections { get; set; } = [];
 }
