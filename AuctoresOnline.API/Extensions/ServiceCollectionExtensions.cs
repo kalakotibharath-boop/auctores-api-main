@@ -21,8 +21,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         // ─── AutoMapper ────────────────────────────────────────────────────────
-        services.AddAutoMapper(typeof(MappingProfile));
-
+        services.AddAutoMapper(cfg => { },
+            typeof(MappingProfile).Assembly);
         // ─── Database ──────────────────────────────────────────────────────────
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -104,6 +104,7 @@ public static class ServiceCollectionExtensions
                     ValidAudience = jwtAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
                 };
+                options.RequireHttpsMetadata = false;
             });
 
         services.AddAuthorization();

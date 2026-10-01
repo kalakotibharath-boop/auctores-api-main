@@ -101,6 +101,7 @@ public class UserMemberRequestService(
         {
             FirstName = req.AFname?.Trim(),
             LastName = req.ALname?.Trim(),
+            Name = req.AFname?.Trim() + " "+ req.ALname?.Trim(),
             Email = req.AEmail?.Trim(),
             Phone = req.APhone?.Trim(),
             Country = req.ACountry?.Trim(),
@@ -113,7 +114,7 @@ public class UserMemberRequestService(
             Keywords = req.MKeywords?.Trim(),
             CoverLetter = req.MCoverLetter?.Trim(),
             Files = uploadedFiles.Count > 0 ? string.Join(",", uploadedFiles) : null,
-            Status = 0,
+            Status = 1,
             CreatedDate = DateTime.UtcNow,
             UpdatedDate = DateTime.UtcNow
         };

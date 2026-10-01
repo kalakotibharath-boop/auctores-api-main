@@ -38,7 +38,7 @@ public class MemberRequestController(IUserMemberRequestService requestService) :
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> SubmitManuscript([FromForm] SubmitManuscriptRequest req)
     {
-        var files = Request.Form.Files;
+         var files = Request.Form.Files;
         return ToResult(await requestService.SubmitManuscriptAsync(req, files));
     }
 

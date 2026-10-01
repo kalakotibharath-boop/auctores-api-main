@@ -15,6 +15,7 @@ public class HomeDataDto
 public class JournalListItemDto
 {
     public string JournalName { get; set; } = "";
+    public int JournalId { get; set; }
     public string? JournalSeoName { get; set; }
     public bool IsExternalJournal { get; set; }
     public string? IssnNumber { get; set; }
@@ -363,7 +364,7 @@ public class SubmitManuscriptRequest
     public string? AOrcid { get; set; }
     public string? AAddress { get; set; }
     public string? MTitle { get; set; }
-    public long? JournalId { get; set; }
+    public int? JournalId { get; set; }
     public string? MArticleType { get; set; }
     public string? MAbstract { get; set; }
     public string? MKeywords { get; set; }

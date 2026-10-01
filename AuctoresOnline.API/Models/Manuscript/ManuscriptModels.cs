@@ -9,9 +9,9 @@ public class ManuscriptRequestDto
 {
     [Key]
     [JsonIgnore]
-    public long RequestId { get; set; }
+    public int RequestId { get; set; }
     [NotMapped]
-    public long ManuscriptId { get; set; }
+    public int ManuscriptId { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     [NotMapped]
@@ -21,7 +21,7 @@ public class ManuscriptRequestDto
     public string? Country { get; set; }
     public string? Orcid { get; set; }
     public string? Address { get; set; }
-    public long? JournalId { get; set; }
+    public int? JournalId { get; set; }
     [NotMapped]
     public string? JournalName { get; set; }
     [NotMapped]
@@ -33,7 +33,7 @@ public class ManuscriptRequestDto
     public string? BioData { get; set; }
     public string? Files { get; set; }
     public string? CoverLetter { get; set; }
-    public byte Status { get; set; }
+    public int Status { get; set; }
     public DateTime? CreatedDate { get; set; }
     public DateTime? UpdatedDate { get; set; }
 }
